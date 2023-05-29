@@ -617,9 +617,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  rb: {fileID: 908829677}
   rotSpeedH: 1
   rotSpeedV: 1
+  characterController: {fileID: 908829678}
 --- !u!4 &908829676
 Transform:
   m_ObjectHideFlags: 0
