@@ -22,10 +22,7 @@ public class CrossPlatformPlayerSpawner : MonoBehaviour
                 debugText.text = "Project is running on : " + Application.platform;
                 break;
         }
-    }
-
-    void Update()
-    {
         
+        //todo : kökboya atölyesi
     }
 }
