@@ -616,10 +616,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575d922d287b3c743bf1e49248d39a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotSpeedH: 1
-  rotSpeedV: 1
-  characterController: {fileID: 908829678}
+  walkingSpeed: 7.5
+  runningSpeed: 11.5
+  jumpSpeed: 8
+  gravity: 20
+  playerCamera: {fileID: 462771053}
+  lookSpeed: 2
+  lookXLimit: 45
+  canMove: 1
 --- !u!4 &908829676
 Transform:
   m_ObjectHideFlags: 0

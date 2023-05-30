@@ -1,44 +1,52 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(CharacterController))]
 
 public class FPSPlayerController : MonoBehaviour
 {
-    [Range(0f, 50f)]
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float rotSpeedH = 1f;
-    [SerializeField] private float rotSpeedV = 1f;
-    
-    private float xRotation = 0.0f;
-    private float yRotation = 0.0f;
+    public float walkingSpeed = 7.5f;
+    public float runningSpeed = 11.5f;
+    public Camera playerCamera;
+    public float lookSpeed = 2.0f;
+    public float lookXLimit = 45.0f;
 
-    public CharacterController characterController;
-    private Rigidbody rb;
+    CharacterController characterController;
+    Vector3 moveDirection = Vector3.zero;
+    float rotationX = 0;
+
+    [HideInInspector]
+    public bool canMove = true;
 
     void Start()
     {
-        gameObject.transform.position = Vector3.zero;
-        rb = GetComponent<Rigidbody>();
-        // characterController = GetComponent<CharacterController>();
-        
+        characterController = GetComponent<CharacterController>();
+
+        // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        // rb.velocity = new Vector3(h, rb.velocity.y, v) * movementSpeed;
-        
-        
-        characterController.Move((Camera.main.transform.right * h * movementSpeed + Camera.main.transform.forward * v * movementSpeed) * Time.deltaTime);
-        
-        float mouseX = Input.GetAxis("Mouse X") * rotSpeedH;
-        float mouseY = Input.GetAxis("Mouse Y") * rotSpeedV;
- 
-        yRotation += mouseX;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
-        Camera.main.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
+        // Move the controller
+        characterController.Move(moveDirection * Time.deltaTime);
 
+        // Player and Camera rotation
+        if (canMove)
+        {
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        }
     }
 }
