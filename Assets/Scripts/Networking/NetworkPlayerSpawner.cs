@@ -9,7 +9,7 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
     private GameObject spawnedObjectPrefab;
     public override void OnJoinedRoom()
     {
-        Vector3 spawnVec = new Vector3(-21.77f, -12.21f, 3.5f);
+        Vector3 spawnVec = new Vector3(-53f, 18.21f, 50.5f);
         base.OnJoinedRoom();
         spawnedObjectPrefab = PhotonNetwork.Instantiate("Network Player", spawnVec, transform.rotation);
     }
