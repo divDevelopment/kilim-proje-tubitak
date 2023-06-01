@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 4c99b13152c729940aef399c8c931e63
+labels:
+- ExitGames
+- PUN
+- Photon
+- Networking
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
