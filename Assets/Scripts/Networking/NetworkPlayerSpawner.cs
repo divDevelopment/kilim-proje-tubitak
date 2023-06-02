@@ -11,7 +11,7 @@ public class NetworkPlayerSpawner : MonoBehaviourPunCallbacks
     {
         Vector3 spawnVec = new Vector3(-53f, 18.21f, 50.5f);
         base.OnJoinedRoom();
-        spawnedObjectPrefab = PhotonNetwork.Instantiate("Network Player", spawnVec, transform.rotation);
+        spawnedObjectPrefab = PhotonNetwork.Instantiate("Network Player", Vector3.zero, transform.rotation);
     }
 
     public override void OnLeftRoom()
